@@ -428,3 +428,6 @@ model = st.selectbox(
      ('Marsh', 'Schnider'))
 
 st.write('You selected:', model)
+
+weight = st.number_input('Please enter Weight')
+st.write('''Patient's weight is ''', weight)

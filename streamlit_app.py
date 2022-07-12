@@ -462,12 +462,11 @@ if gender_selected == 'Female':
 else:
     gender = 1
 
-duration_in_secs = duration * 60 #in seconds
-refresh_rate = 10 #second
-
-
 duration = st.number_input('Please enter Duration',min_value=0, step = 1, value = 20)
 st.write('Operation Duration is ', duration,' mins')
 
 depth = st.number_input('Please enter Depth',min_value=0.1, step = 0.5, value = 3.0)
 st.write('Operation Depth is ', depth,' CeT (mcg/mL)')
+
+duration_in_secs = duration * 60 #in seconds
+refresh_rate = 10 #second

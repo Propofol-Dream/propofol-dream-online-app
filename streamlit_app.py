@@ -444,7 +444,7 @@ if model == 'Schnider':
     weight = st.number_input('Please enter Weight',min_value=0.1, step = 1.0, value = 40.0)
     st.write('''Patient's Weight is ''', weight,' kg')
 
-    height = st.number_input('Please enter Height',min_value=10, step = 10, value = 140, help = 'test help text here')
+    height = st.number_input('Please enter Height',min_value=10, step = 10, value = 140)
     st.write('''Patient's Height is ''', height,' cm')
 
     age = st.number_input('Please enter Age',min_value=0, step = 1, value = 30)
@@ -467,5 +467,12 @@ st.write('Operation Duration is ', duration,' mins')
 depth = st.number_input('Please enter Depth',min_value=0.1, step = 0.5, value = 3.0)
 st.write('Operation Depth is ', depth,' CeT (mcg/mL)')
 
-duration_in_secs = duration * 60 #in seconds
-refresh_rate = 10 #second
+df_sim = 0
+
+if model == 'Marsh':
+  df_sim = simulate_model(age = 0, weight = weight, height = 0, gender = 0, duration = duration, depth = depth, model = model)
+elif model == 'Schnider':
+  df_sim = simulate_model(age = age, weight = weight, height = height, gender = gender, duration = duration, depth = depth, model = model)
+result = df_sim['Volume'].iloc[-1]
+
+st.dataframe(result)

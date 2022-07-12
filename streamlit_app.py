@@ -364,7 +364,7 @@ def simulate_model(weight, height, age, gender, depth, duration, model, refresh_
       Ce_states[2] = bolus*CoefCe3+Ce_states[2]*math.e**(-l3*step_delta) + infusion * (CoefCe3/l3) * (1 - math.e**(-l3 * step_delta))
       Ce_states[3] = bolus*CoefCe4+Ce_states[3]*math.e**(-ke0*step_delta) + infusion * (CoefCe4/ke0) * (1 - math.e**(-ke0 * step_delta))
       Ce = sum(Ce_states)
-
+    print('Duration')
     df=df.append(pd.DataFrame({'Step':[step_current], 'Duration':[duration_current], 'Time': [time], 'Step Delta':[step_delta], 'Bolus':[bolus], 'Infusion':[infusion], 'CP': [Cp], 'CE': [Ce] }), ignore_index=True)
 
   df['Infusion Accumulated'] = df['Infusion'].cumsum() # in mcg

@@ -469,10 +469,6 @@ st.write('Operation Depth is ', depth,' CeT (mcg/mL)')
 
 df_sim = 0
 
-df["delta"] = df["delta"].dt.days
-
-st.dataframe(df)
-
 if model == 'Marsh':
     df_sim = simulate_model(age = 0, weight = weight, height = 0, gender = 0, duration = duration, depth = depth, model = model)
     df_sim['Duration'] = df_sim['Duration'].dt.minute

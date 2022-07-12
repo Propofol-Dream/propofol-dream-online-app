@@ -461,8 +461,8 @@ if model == 'Schnider':
     else:
         gender = 1
 
-duration = st.number_input('Please enter Duration',min_value=0.0, step = 1.0, value = 20.0)
-st.write('Operation Duration is ', duration,' mins')
+duration = st.number_input('Please enter ',min_value=0.0, step = 1.0, value = 20.0)
+st.write('Operation  is ', duration,' mins')
 
 depth = st.number_input('Please enter Depth',min_value=0.1, step = 0.5, value = 3.0)
 st.write('Operation Depth is ', depth,' CeT (mcg/mL)')

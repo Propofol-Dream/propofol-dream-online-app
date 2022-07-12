@@ -427,7 +427,8 @@ model = st.selectbox(
      'Please select your model',
      ('Marsh', 'Schnider'))
 
-st.write('You selected:', model)
+st.write('Model selected:', model)
 
-weight = st.number_input('Please enter Weight',min_value=0.1, step = 1.0, value = 40.0)
-st.write('''Patient's weight is ''', weight)
+if model = 'Marsh':
+    weight = st.number_input('Please enter Weight',min_value=0.1, step = 1.0, value = 40.0)
+    st.write('''Patient's weight is ''', weight,' kg')

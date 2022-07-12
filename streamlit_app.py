@@ -423,6 +423,8 @@ def cacl_peak_Ce(weight, height, age, gender, model):
 
 st.title('Propofol Dream Online App')
 
+is_disabled=False
+
 model = st.selectbox(
      'Please select your model',
      ('Marsh', 'Schnider'))
@@ -430,11 +432,40 @@ model = st.selectbox(
 st.write('Model selected:', model)
 
 if model == 'Marsh':
-    weight = st.number_input('Please enter Weight',min_value=0.1, step = 1.0, value = 40.0)
-    st.write('''Patient's Weight is ''', weight,' kg')
+    is_disabled = True
 
-duration = st.number_input('Please enter Duration',min_value=0, step = 1, value = 40)
+if model == 'Schnider':
+    is_disabled = False
+
+weight = st.number_input('Please enter Weight',min_value=0.1, step = 1.0, value = 40.0)
+st.write('''Patient's Weight is ''', weight,' kg')
+
+height = st.number_input('Please enter Height',min_value=10, step = 10, value = 140)
+st.write('''Patient's Height is ''', height,' cm', disabled = is_disabled)
+
+age = st.number_input('Please enter Age',min_value=0, step = 1, value = 30)
+st.write('''Patient's Age is ''', age,' years-old', disabled = is_disabled)
+
+gender_selected = st.selectbox(
+     'Please select Gender',
+     ('Female', 'Male'),
+     disabled = is_disabled)
+
+st.write('Gender selected:', gender_selected)
+
+gender = null
+
+if gender_selected == 'Female':
+    gender = 0
+else:
+    gender = 1
+
+duration_in_secs = duration * 60 #in seconds
+refresh_rate = 10 #second
+
+
+duration = st.number_input('Please enter Duration',min_value=0, step = 1, value = 20)
 st.write('Operation Duration is ', duration,' mins')
 
-depth = st.number_input('Please enter Depth',min_value=0.1, step = 1.0, value = 40.0)
+depth = st.number_input('Please enter Depth',min_value=0.1, step = 0.5, value = 3.0)
 st.write('Operation Depth is ', depth,' CeT (mcg/mL)')

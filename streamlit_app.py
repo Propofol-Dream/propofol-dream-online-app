@@ -461,8 +461,8 @@ if model == 'Schnider':
     else:
         gender = 1
 
-duration = st.number_input('Please enter ',min_value=0.0, step = 1.0, value = 20.0)
-st.write('Operation  is ', duration,' mins')
+duration = st.number_input('Please enter Duration',min_value=0.0, step = 1.0, value = 20.0)
+st.write('Operation Duration is ', duration,' mins')
 
 depth = st.number_input('Please enter Depth',min_value=0.1, step = 0.5, value = 3.0)
 st.write('Operation Depth is ', depth,' CeT (mcg/mL)')
@@ -472,9 +472,9 @@ df_sim = 0
 if model == 'Marsh':
     df_sim = simulate_model(age = 0, weight = weight, height = 0, gender = 0, duration = duration, depth = depth, model = model)
     # df_sim.drop('Duration', axis = 1, inplace = True)
-    # result = df_sim['Volume'].iloc[-1]
-    st.write(df_sim.dtypes.astype(str))
-    st.dataframe(df_sim)
+    result = df_sim['Volume'].iloc[-1]
+
+    st.code(result)
     st.download_button(
          label="Download data as CSV",
          data= df_sim.to_csv().encode('utf-8'),
@@ -486,7 +486,7 @@ elif model == 'Schnider':
     df_sim = simulate_model(age = age, weight = weight, height = height, gender = gender, duration = duration, depth = depth, model = model)
     # df_sim.drop('Duration', axis = 1, inplace = True)
     # result = df_sim['Volume'].iloc[-1]
-    st.dataframe(df_sim)
+    st.code(result)
     st.download_button(
          label="Download data as CSV",
          data= df_sim.to_csv().encode('utf-8'),

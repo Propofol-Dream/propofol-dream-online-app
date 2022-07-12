@@ -471,7 +471,7 @@ df_sim = 0
 
 if model == 'Marsh':
     df_sim = simulate_model(age = 0, weight = weight, height = 0, gender = 0, duration = duration, depth = depth, model = model)
-    # df_sim = df_sim.drop(['Duration'], axis = 1)
+    df_sim = df_sim.drop(['Duration'], axis = 1)
     # result = df_sim['Volume'].iloc[-1]
     st.write(df_sim.dtypes.astype(str))
     st.dataframe(df_sim)
@@ -484,7 +484,7 @@ if model == 'Marsh':
 
 elif model == 'Schnider':
     df_sim = simulate_model(age = age, weight = weight, height = height, gender = gender, duration = duration, depth = depth, model = model)
-    # df_sim = df_sim.drop(['Duration'], axis = 1)
+    df_sim = df_sim.drop(['Duration'], axis = 1)
     # result = df_sim['Volume'].iloc[-1]
     st.dataframe(df_sim)
     st.download_button(

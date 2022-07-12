@@ -437,6 +437,8 @@ if model == 'Marsh':
 if model == 'Schnider':
     is_disabled = False
 
+st.write('is_disabled = ', is_disabled)
+
 weight = st.number_input('Please enter Weight',min_value=0.1, step = 1.0, value = 40.0)
 st.write('''Patient's Weight is ''', weight,' kg')
 

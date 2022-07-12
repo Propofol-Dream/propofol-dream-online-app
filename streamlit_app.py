@@ -473,9 +473,9 @@ if model == 'Marsh':
     df_sim = simulate_model(age = 0, weight = weight, height = 0, gender = 0, duration = duration, depth = depth, model = model)
     df_sim = df_sim.drop(['Duration'], axis = 1)
     # result = df_sim['Volume'].iloc[-1]
-    st.write(df_sim)
+    st.code(df_sim)
 elif model == 'Schnider':
     df_sim = simulate_model(age = age, weight = weight, height = height, gender = gender, duration = duration, depth = depth, model = model)
     df_sim = df_sim.drop(['Duration'], axis = 1)
     # result = df_sim['Volume'].iloc[-1]
-    st.write(df_sim)
+    st.code(df_sim)

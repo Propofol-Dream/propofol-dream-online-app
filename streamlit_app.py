@@ -422,3 +422,9 @@ def cacl_peak_Ce(weight, height, age, gender, model):
 
 
 st.title('Propofol Dream Online App')
+
+model = st.selectbox(
+     'Please select your model',
+     ('Marsh', 'Schnider'))
+
+st.write('You selected:', model)

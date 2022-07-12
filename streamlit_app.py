@@ -284,7 +284,7 @@ def calc_model_variables_Eleveld(weight, height, age, gender, refresh_rate = 1):
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 def simulate_model(weight, height, age, gender, depth, duration, model, refresh_rate = 10, propofol_density = 10):
-
+  print('Print')
   # Configure Temporal Variables
   duration_in_secs = duration * 60 #in seconds
   steps_per_min = 60 / refresh_rate #number of steps in one minute
@@ -364,7 +364,7 @@ def simulate_model(weight, height, age, gender, depth, duration, model, refresh_
       Ce_states[2] = bolus*CoefCe3+Ce_states[2]*math.e**(-l3*step_delta) + infusion * (CoefCe3/l3) * (1 - math.e**(-l3 * step_delta))
       Ce_states[3] = bolus*CoefCe4+Ce_states[3]*math.e**(-ke0*step_delta) + infusion * (CoefCe4/ke0) * (1 - math.e**(-ke0 * step_delta))
       Ce = sum(Ce_states)
-    print('Duration')
+
     df=df.append(pd.DataFrame({'Step':[step_current], 'Duration':[duration_current], 'Time': [time], 'Step Delta':[step_delta], 'Bolus':[bolus], 'Infusion':[infusion], 'CP': [Cp], 'CE': [Ce] }), ignore_index=True)
 
   df['Infusion Accumulated'] = df['Infusion'].cumsum() # in mcg

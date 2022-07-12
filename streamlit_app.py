@@ -444,7 +444,7 @@ if model == 'Schnider':
     weight = st.number_input('Please enter Weight',min_value=0.1, step = 1.0, value = 40.0)
     st.write('''Patient's Weight is ''', weight,' kg')
 
-    height = st.number_input('Please enter Height',min_value=10, step = 10, value = 140)
+    height = st.number_input('Please enter Height',min_value=10, step = 10, value = 140, help = 'test help text here')
     st.write('''Patient's Height is ''', height,' cm')
 
     age = st.number_input('Please enter Age',min_value=0, step = 1, value = 30)

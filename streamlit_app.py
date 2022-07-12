@@ -461,7 +461,7 @@ if model == 'Schnider':
     else:
         gender = 1
 
-duration = st.number_input('Please enter Duration',min_value=0, step = 1, value = 20)
+duration = st.number_input('Please enter Duration',min_value=0.0, step = 1.0, value = 20.0)
 st.write('Operation Duration is ', duration,' mins')
 
 depth = st.number_input('Please enter Depth',min_value=0.1, step = 0.5, value = 3.0)
@@ -471,11 +471,9 @@ df_sim = 0
 
 if model == 'Marsh':
     df_sim = simulate_model(age = 0, weight = weight, height = 0, gender = 0, duration = duration, depth = depth, model = model)
-    df_sim['Duration'] = df_sim['Duration'].dt.minute
     # result = df_sim['Volume'].iloc[-1]
     st.table(df_sim)
 elif model == 'Schnider':
     df_sim = simulate_model(age = age, weight = weight, height = height, gender = gender, duration = duration, depth = depth, model = model)
-    df_sim['Duration'] = df_sim['Duration'].dt.minute
     # result = df_sim['Volume'].iloc[-1]
     st.table(df_sim)

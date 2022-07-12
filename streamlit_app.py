@@ -473,7 +473,8 @@ if model == 'Marsh':
     df_sim = simulate_model(age = 0, weight = weight, height = 0, gender = 0, duration = duration, depth = depth, model = model)
     # df_sim.drop('Duration', axis = 1, inplace = True)
     result = df_sim['Volume'].iloc[-1]
-    st.title('Total Volume =',result,' mL')
+    title = 'Total Volume = '+result.toString()+' mL'
+    st.title(title)
     st.download_button(
          label="Download data",
          data= df_sim.to_csv().encode('utf-8'),
@@ -485,7 +486,8 @@ elif model == 'Schnider':
     df_sim = simulate_model(age = age, weight = weight, height = height, gender = gender, duration = duration, depth = depth, model = model)
     # df_sim.drop('Duration', axis = 1, inplace = True)
     result = df_sim['Volume'].iloc[-1]
-    st.title('Total Volume =',result,' mL')
+    title = 'Total Volume = '+result.toString()+' mL'
+    st.title(title)
     st.download_button(
          label="Download data",
          data= df_sim.to_csv().encode('utf-8'),

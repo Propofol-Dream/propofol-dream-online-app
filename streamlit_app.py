@@ -473,8 +473,8 @@ if model == 'Marsh':
     df_sim = simulate_model(age = 0, weight = weight, height = 0, gender = 0, duration = duration, depth = depth, model = model)
     # df_sim = df_sim.drop(['Duration'], axis = 1)
     # result = df_sim['Volume'].iloc[-1]
-    st.write(df_sim.dtypes)
-    st.dataframe(df_sim)
+    st.write(df_sim.dtypes.astype(str))
+    # st.dataframe(df_sim)
     st.download_button(
          label="Download data as CSV",
          data= df_sim.to_csv().encode('utf-8'),

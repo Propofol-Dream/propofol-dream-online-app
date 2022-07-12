@@ -455,7 +455,7 @@ gender_selected = st.selectbox(
 
 st.write('Gender selected:', gender_selected)
 
-gender = null
+gender = 0
 
 if gender_selected == 'Female':
     gender = 0

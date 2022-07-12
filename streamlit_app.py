@@ -470,9 +470,10 @@ st.write('Operation Depth is ', depth,' CeT (mcg/mL)')
 df_sim = 0
 
 if model == 'Marsh':
-  df_sim = simulate_model(age = 0, weight = weight, height = 0, gender = 0, duration = duration, depth = depth, model = model)
+    df_sim = simulate_model(age = 0, weight = weight, height = 0, gender = 0, duration = duration, depth = depth, model = model)
+    result = df_sim['Volume'].iloc[-1]
+    st.dataframe(result)
 elif model == 'Schnider':
-  df_sim = simulate_model(age = age, weight = weight, height = height, gender = gender, duration = duration, depth = depth, model = model)
-result = df_sim['Volume'].iloc[-1]
-
-st.dataframe(result)
+    df_sim = simulate_model(age = age, weight = weight, height = height, gender = gender, duration = duration, depth = depth, model = model)
+    result = df_sim['Volume'].iloc[-1]
+    st.dataframe(result)

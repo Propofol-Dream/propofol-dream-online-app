@@ -1,5 +1,5 @@
-altair
+numpy
 pandas
+math
+datetime
 streamlit
-xlsxwriter
-tqdm

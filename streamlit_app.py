@@ -425,6 +425,11 @@ st.title('Propofol Dream Online App')
 
 is_disabled=False
 
+weight = 0.0
+height = 0.0
+age = 0
+gender = 0
+
 model = st.selectbox(
      'Please select your model',
      ('Marsh', 'Schnider'))
@@ -432,35 +437,29 @@ model = st.selectbox(
 st.write('Model selected:', model)
 
 if model == 'Marsh':
-    is_disabled = True
+    weight = st.number_input('Please enter Weight',min_value=0.1, step = 1.0, value = 40.0)
+    st.write('''Patient's Weight is ''', weight,' kg')
 
 if model == 'Schnider':
-    is_disabled = False
+    weight = st.number_input('Please enter Weight',min_value=0.1, step = 1.0, value = 40.0)
+    st.write('''Patient's Weight is ''', weight,' kg')
 
-st.write('is_disabled = ', is_disabled)
+    height = st.number_input('Please enter Height',min_value=10, step = 10, value = 140)
+    st.write('''Patient's Height is ''', height,' cm')
 
-weight = st.number_input('Please enter Weight',min_value=0.1, step = 1.0, value = 40.0)
-st.write('''Patient's Weight is ''', weight,' kg')
+    age = st.number_input('Please enter Age',min_value=0, step = 1, value = 30)
+    st.write('''Patient's Age is ''', age,' years-old')
 
-height = st.number_input('Please enter Height',min_value=10, step = 10, value = 140, disabled = is_disabled)
-st.write('''Patient's Height is ''', height,' cm')
+    gender_selected = st.selectbox(
+         'Please select Gender',
+         ('Female', 'Male'))
 
-age = st.number_input('Please enter Age',min_value=0, step = 1, value = 30, disabled = is_disabled)
-st.write('''Patient's Age is ''', age,' years-old')
+    st.write('Gender selected:', gender_selected)
 
-gender_selected = st.selectbox(
-     'Please select Gender',
-     ('Female', 'Male'),
-     disabled = is_disabled)
-
-st.write('Gender selected:', gender_selected)
-
-gender = 0
-
-if gender_selected == 'Female':
-    gender = 0
-else:
-    gender = 1
+    if gender_selected == 'Female':
+        gender = 0
+    else:
+        gender = 1
 
 duration = st.number_input('Please enter Duration',min_value=0, step = 1, value = 20)
 st.write('Operation Duration is ', duration,' mins')

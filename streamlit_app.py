@@ -442,11 +442,11 @@ st.write('is_disabled = ', is_disabled)
 weight = st.number_input('Please enter Weight',min_value=0.1, step = 1.0, value = 40.0)
 st.write('''Patient's Weight is ''', weight,' kg')
 
-height = st.number_input('Please enter Height',min_value=10, step = 10, value = 140)
-st.write('''Patient's Height is ''', height,' cm', disabled = True)
+height = st.number_input('Please enter Height',min_value=10, step = 10, value = 140, , disabled = is_disabled)
+st.write('''Patient's Height is ''', height,' cm')
 
-age = st.number_input('Please enter Age',min_value=0, step = 1, value = 30)
-st.write('''Patient's Age is ''', age,' years-old', disabled = is_disabled)
+age = st.number_input('Please enter Age',min_value=0, step = 1, value = 30, , disabled = is_disabled)
+st.write('''Patient's Age is ''', age,' years-old')
 
 gender_selected = st.selectbox(
      'Please select Gender',

@@ -323,7 +323,7 @@ def simulate_model(weight, height, age, gender, depth, duration, model, refresh_
   Ce = 0
   udf_delta = 0
   step_delta = 0
-  df = pd.DataFrame(columns=['Step','Duration','Time','Step Delta', 'Bolus', 'Infusion', 'CP', 'CE'])
+  df = pd.DataFrame(columns=['Step','Dr','Time','Step Delta', 'Bolus', 'Infusion', 'CP', 'CE'])
 
   # Commence Iterative Calculation, step_current = 0 is when the initial bolus is applied
   for d in np.arange(0, duration_in_secs + refresh_rate, refresh_rate):
@@ -365,7 +365,7 @@ def simulate_model(weight, height, age, gender, depth, duration, model, refresh_
       Ce_states[3] = bolus*CoefCe4+Ce_states[3]*math.e**(-ke0*step_delta) + infusion * (CoefCe4/ke0) * (1 - math.e**(-ke0 * step_delta))
       Ce = sum(Ce_states)
 
-    df=df.append(pd.DataFrame({'Step':[step_current], 'Duration':[duration_current], 'Time': [time], 'Step Delta':[step_delta], 'Bolus':[bolus], 'Infusion':[infusion], 'CP': [Cp], 'CE': [Ce] }), ignore_index=True)
+    df=df.append(pd.DataFrame({'Step':[step_current], 'Dr':[duration_current], 'Time': [time], 'Step Delta':[step_delta], 'Bolus':[bolus], 'Infusion':[infusion], 'CP': [Cp], 'CE': [Ce] }), ignore_index=True)
 
   df['Infusion Accumulated'] = df['Infusion'].cumsum() # in mcg
   df['Bolus Accumulated'] = df['Bolus'].cumsum() # in mcg
@@ -471,7 +471,7 @@ df_sim = 0
 
 if model == 'Marsh':
     df_sim = simulate_model(age = 0, weight = weight, height = 0, gender = 0, duration = duration, depth = depth, model = model)
-    df_sim = df_sim.drop('Duration', axis = 1)
+    df_sim.drop('Duration', axis = 1, inplace = True)
     # result = df_sim['Volume'].iloc[-1]
     st.write(df_sim.dtypes.astype(str))
     st.dataframe(df_sim)
@@ -484,7 +484,7 @@ if model == 'Marsh':
 
 elif model == 'Schnider':
     df_sim = simulate_model(age = age, weight = weight, height = height, gender = gender, duration = duration, depth = depth, model = model)
-    df_sim = df_sim.drop('Duration', axis = 1)
+    df_sim.drop('Duration', axis = 1, inplace = True)
     # result = df_sim['Volume'].iloc[-1]
     st.dataframe(df_sim)
     st.download_button(

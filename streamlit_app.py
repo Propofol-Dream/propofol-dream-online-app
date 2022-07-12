@@ -284,7 +284,7 @@ def calc_model_variables_Eleveld(weight, height, age, gender, refresh_rate = 1):
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 def simulate_model(weight, height, age, gender, depth, duration, model, refresh_rate = 10, propofol_density = 10):
-  print('Print')
+
   # Configure Temporal Variables
   duration_in_secs = duration * 60 #in seconds
   steps_per_min = 60 / refresh_rate #number of steps in one minute
@@ -472,8 +472,8 @@ df_sim = 0
 if model == 'Marsh':
     df_sim = simulate_model(age = 0, weight = weight, height = 0, gender = 0, duration = duration, depth = depth, model = model)
     # result = df_sim['Volume'].iloc[-1]
-    st.code(df_sim)
+    st.table(df_sim)
 elif model == 'Schnider':
     df_sim = simulate_model(age = age, weight = weight, height = height, gender = gender, duration = duration, depth = depth, model = model)
     # result = df_sim['Volume'].iloc[-1]
-    st.code(df_sim)
+    st.table(df_sim)

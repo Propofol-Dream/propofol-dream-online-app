@@ -433,7 +433,7 @@ if model == 'Marsh':
     weight = st.number_input('Please enter Weight',min_value=0.1, step = 1.0, value = 40.0)
     st.write('''Patient's Weight is ''', weight,' kg')
 
-duration = st.number_input('Please enter Duration',min_value=0.1, step = 1.0, value = 40.0)
+duration = st.number_input('Please enter Duration',min_value=0, step = 1, value = 40)
 st.write('Operation Duration is ', duration,' mins')
 
 depth = st.number_input('Please enter Depth',min_value=0.1, step = 1.0, value = 40.0)

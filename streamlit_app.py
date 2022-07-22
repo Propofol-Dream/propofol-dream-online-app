@@ -439,6 +439,12 @@ def cacl_peak_Ce(weight, height, age, gender, model):
 
 st.title('Propofol Dream Self-serve Portal')
 
+model = st.selectbox(
+     'Select a Model',
+     ('Marsh', 'Schnider', 'Eleveld'))
+
+st.write('You selected:', model)
+
 @st.cache
 def convert_df(df):
    return df.to_csv().encode('utf-8')
@@ -449,7 +455,7 @@ if uploaded_file is not None:
 #read csv
     df=pd.read_csv(uploaded_file)
     #Select model by commenting out the model name
-    model = 'Marsh'
+    # model = 'Marsh'
     # model = 'Schnider'
     # model = 'Eleveld'
 

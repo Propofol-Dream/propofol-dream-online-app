@@ -439,6 +439,10 @@ def cacl_peak_Ce(weight, height, age, gender, model):
 
 st.title('Propofol Dream Self-serve Portal')
 
+@st.cache
+def convert_df(df):
+   return df.to_csv().encode('utf-8')
+
 
 uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
@@ -463,10 +467,11 @@ if uploaded_file is not None:
     # print(results)
     df['Propofol Volume']=results
 
-    csv = df.to_csv('outputs.csv',index = False)
+    csv = convert_df(df)
 
     st.download_button(
          label="Download the fancy csv",
          data=csv,
-         file_name='outputs.csv'
+         file_name='outputs.csv',
+         mime='text/csv'
      )

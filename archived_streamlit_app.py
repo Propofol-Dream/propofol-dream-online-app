@@ -1,22 +1,10 @@
-
-
 import pandas as pd
 import numpy as np
 
 from datetime import datetime, timedelta
 
 import math
-
 import streamlit as st
-
-# from google.colab import drive
-# drive.mount('/drive')
-
-# import progressbar
-
-# #Google Cloud Stroage Access via df.to_csv()
-# !pip install fsspec
-# !pip install gcsfs
 
 # # # # # # # # # # # # # # # # # # # # # #
 # # # # # Marsh Model & Functions # # # # #
@@ -335,7 +323,7 @@ def simulate_model(weight, height, age, gender, depth, duration, model, refresh_
   Ce = 0
   udf_delta = 0
   step_delta = 0
-  df = pd.DataFrame(columns=['Step','Duration','Time','Step Delta', 'Bolus', 'Infusion', 'CP', 'CE'])
+  df = pd.DataFrame(columns=['Step','Dr','Time','Step Delta', 'Bolus', 'Infusion', 'CP', 'CE'])
 
   # Commence Iterative Calculation, step_current = 0 is when the initial bolus is applied
   for d in np.arange(0, duration_in_secs + refresh_rate, refresh_rate):
@@ -377,7 +365,7 @@ def simulate_model(weight, height, age, gender, depth, duration, model, refresh_
       Ce_states[3] = bolus*CoefCe4+Ce_states[3]*math.e**(-ke0*step_delta) + infusion * (CoefCe4/ke0) * (1 - math.e**(-ke0 * step_delta))
       Ce = sum(Ce_states)
 
-    df=df.append(pd.DataFrame({'Step':[step_current], 'Duration':[duration_current], 'Time': [time], 'Step Delta':[step_delta], 'Bolus':[bolus], 'Infusion':[infusion], 'CP': [Cp], 'CE': [Ce] }), ignore_index=True)
+    df=df.append(pd.DataFrame({'Step':[step_current], 'Dr':[duration_current], 'Time': [time], 'Step Delta':[step_delta], 'Bolus':[bolus], 'Infusion':[infusion], 'CP': [Cp], 'CE': [Ce] }), ignore_index=True)
 
   df['Infusion Accumulated'] = df['Infusion'].cumsum() # in mcg
   df['Bolus Accumulated'] = df['Bolus'].cumsum() # in mcg
@@ -432,41 +420,76 @@ def cacl_peak_Ce(weight, height, age, gender, model):
   peak_TTPE = (len(Ce)-2) * refresh_rate
   return peak_Ce, peak_TTPE
 
-#main for simulation
 
-# Marsh model requires Weight & Duration columns (other columns will be ignored)
-# Schnider model requires Weight, Height, Age, Gender, Duration columns
+st.title('Propofol Dream Online App')
 
-st.title('Propofol Dream Self-serve Portal')
+is_disabled=False
 
+weight = 0.0
+height = 0.0
+age = 0
+gender = 0
 
-uploaded_file = st.file_uploader("Choose a file")
-if uploaded_file is not None:
-#read csv
-    df=pd.read_csv(uploaded_file)
-    #Select model by commenting out the model name
-    model = 'Marsh'
-    # model = 'Schnider'
-    # model = 'Eleveld'
+model = st.selectbox(
+     'Please select your model',
+     ('Marsh', 'Schnider'))
 
-    results = []
-    df_sim = 0
+st.write('Model selected:', model)
 
-    for index, row in df.iterrows():
-      # print(row)
-      if model == 'Marsh':
-        df_sim = simulate_model(age = 0, weight = row['Weight'], height = 0, gender = 0, duration= row['Duration'], depth = row['Depth'], model = model)
-      elif((model == 'Schnider') | (model == 'Eleveld')):
-        df_sim = simulate_model(age = row['Age'], weight = row['Weight'], height = row['Height'], gender = row['Gender'], duration= row['Duration'], depth = row['Depth'], model = model)
-      result = df_sim['Volume'].iloc[-1]
-      results.append(result)
-    # print(results)
-    df['Propofol Volume']=results
+if model == 'Marsh':
+    weight = st.number_input('Please enter Weight',min_value=0.1, step = 1.0, value = 40.0)
+    st.write('''Patient's Weight is ''', weight,' kg')
 
-    csv = df.to_csv('outputs.csv',index = False)
+if model == 'Schnider':
+    weight = st.number_input('Please enter Weight',min_value=0.1, step = 1.0, value = 40.0)
+    st.write('''Patient's Weight is ''', weight,' kg')
 
+    height = st.number_input('Please enter Height',min_value=10, step = 10, value = 140)
+    st.write('''Patient's Height is ''', height,' cm')
+
+    age = st.number_input('Please enter Age',min_value=0, step = 1, value = 30)
+    st.write('''Patient's Age is ''', age,' years-old')
+
+    gender_selected = st.selectbox(
+         'Please select Gender',
+         ('Female', 'Male'))
+
+    st.write('Gender selected:', gender_selected)
+
+    if gender_selected == 'Female':
+        gender = 0
+    else:
+        gender = 1
+
+duration = st.number_input('Please enter Duration',min_value=0.0, step = 1.0, value = 20.0)
+st.write('Operation Duration is ', duration,' mins')
+
+depth = st.number_input('Please enter Depth',min_value=0.1, step = 0.5, value = 3.0)
+st.write('Operation Depth is ', depth,' CeT (mcg/mL)')
+
+df_sim = 0
+
+if model == 'Marsh':
+    df_sim = simulate_model(age = 0, weight = weight, height = 0, gender = 0, duration = duration, depth = depth, model = model)
+    # df_sim.drop('Duration', axis = 1, inplace = True)
+    result = df_sim['Volume'].iloc[-1]
+    title = 'Total Volume = '+str(result.round(decimals=2))+' mL'
+    st.title(title)
     st.download_button(
-         label="Download the fancy csv",
-         data=csv,
-         file_name='outputs.csv'
-     )
+         label="Download data",
+         data= df_sim.to_csv().encode('utf-8'),
+         file_name='df_sim.csv',
+         mime='text/csv')
+
+
+elif model == 'Schnider':
+    df_sim = simulate_model(age = age, weight = weight, height = height, gender = gender, duration = duration, depth = depth, model = model)
+    # df_sim.drop('Duration', axis = 1, inplace = True)
+    result = df_sim['Volume'].iloc[-1]
+    title = 'Total Volume = '+str(result.round(decimals=2))+' mL'
+    st.title(title)
+    st.download_button(
+         label="Download data",
+         data= df_sim.to_csv().encode('utf-8'),
+         file_name='df_sim.csv',
+         mime='text/csv')
